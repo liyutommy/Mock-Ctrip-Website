@@ -1,5 +1,5 @@
-import React from 'react'
-import { Layout, Typography } from 'antd'
+import React from "react";
+import { Layout, Typography } from "antd";
 
 export const Footer: React.FC = () => {
   return (
@@ -8,6 +8,5 @@ export const Footer: React.FC = () => {
         版权所有 @ 携程旅游网
       </Typography.Title>
     </Layout.Footer>
-  )
-}
-
+  );
+};
