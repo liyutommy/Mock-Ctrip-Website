@@ -4,7 +4,7 @@ import logo from "../../assets/logo.jpeg";
 import { Button, MenuProps } from "antd";
 import { Dropdown, Input, Layout, Menu, Typography } from "antd";
 import { GlobalOutlined } from "@ant-design/icons";
-
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const langItems: MenuProps["items"] = [
   {
@@ -41,6 +41,18 @@ const navItems: MenuProps["items"] = [
 ];
 
 export const Header: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
+
+  const handleRegister = () => {
+    navigate("/register");
+  };
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <div className={styles["App-header"]}>
       <div className={styles["top-header"]}>
@@ -54,22 +66,28 @@ export const Header: React.FC = () => {
             语言
           </Dropdown.Button>
           <Button.Group className={styles["button-group"]}>
-            <Button>注册</Button>
-            <Button>登陆</Button>
+            <Button onClick={handleRegister}>注册</Button>
+            <Button onClick={handleLogin}>登陆</Button>
           </Button.Group>
         </div>
       </div>
       <Layout.Header className={styles["main-header"]}>
-        <img src={logo} alt="" className={styles["App-logo"]} />
-        <Typography.Title level={3} className={styles.title}>
-          携程旅行
-        </Typography.Title>
+        <span onClick={() => navigate("/")}>
+          <img src={logo} alt="" className={styles["App-logo"]} />
+          <Typography.Title level={3} className={styles.title}>
+            携程旅行
+          </Typography.Title>
+        </span>
         <Input.Search
           placeholder="请输入旅游目的地、主题、或关键字"
           className={styles["search-input"]}
         />
       </Layout.Header>
-      <Menu mode="horizontal" className={styles["main-menu"]} items={navItems} />
+      <Menu
+        mode="horizontal"
+        className={styles["main-menu"]}
+        items={navItems}
+      />
     </div>
-  )
-}
+  );
+};
