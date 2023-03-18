@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./App.module.css";
-import { Footer, Header, SideMenu, Carousel, ProductionCollection } from "./components";
+import { Footer, Header, SideMenu, Carousel, ProductionCollection, BusinessPartners } from "./components";
 import { Col, Row, Typography } from "antd";
 import { productList1, productList2, productList3 } from "./mockup";
 import sideImage1 from "./assets/images/sider_1.png";
@@ -32,8 +32,8 @@ function App() {
               爆款推荐
             </Typography.Title>
           }
-          sideImage = {sideImage1}
-          products = {productList1}
+          sideImage={sideImage1}
+          products={productList1}
         />
         <ProductionCollection
           title={
@@ -41,8 +41,8 @@ function App() {
               新品上市
             </Typography.Title>
           }
-          sideImage = {sideImage2}
-          products = {productList2}
+          sideImage={sideImage2}
+          products={productList2}
         />
         <ProductionCollection
           title={
@@ -50,9 +50,11 @@ function App() {
               国内游推荐
             </Typography.Title>
           }
-          sideImage = {sideImage3}
-          products = {productList3}
+          sideImage={sideImage3}
+          products={productList3}
         />
+
+        <BusinessPartners />
       </div>
       <Footer />
     </div>
