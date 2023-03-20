@@ -9,21 +9,6 @@ import { withRouter, RouteComponentProps } from "../../helpers/withRouter";
 import store from "../../redux/store";
 import { LanguageState } from "../../redux/languageReducer";
 
-const langItems: MenuProps["items"] = [
-  {
-    label: "中文",
-    key: "1",
-  },
-  {
-    label: "English",
-    key: "2",
-  },
-];
-
-const dropDownProps = {
-  items: langItems,
-};
-
 const navItems: MenuProps["items"] = [
   { key: "1", label: "旅游首页" },
   { key: "2", label: "周末游" },
@@ -53,7 +38,34 @@ class HeaderComponent extends Component<RouteComponentProps, State> {
       language: storeState.language,
       languageList: storeState.languageList,
     };
+    store.subscribe(this.handleStoreChange);
   }
+
+  handleStoreChange = () => {
+    const storeState = store.getState();
+    this.setState({
+      language: storeState.language,
+      languageList: storeState.languageList
+    });
+  };
+
+  menuClickHandler = (event) => {
+    console.log(event);
+    if (event.key === "new") {
+      // 添加新语言action
+      const action = {
+        type: "add_language",
+        payload: { code: "new_language", name: "新语言" },
+      };
+      store.dispatch(action);
+    } else {
+      const action = {
+        type: "change_language",
+        payload: event.key,
+      };
+      store.dispatch(action);
+    }
+  };
 
   render(): React.ReactNode {
     const { navigate } = this.props;
@@ -65,12 +77,18 @@ class HeaderComponent extends Component<RouteComponentProps, State> {
             <Typography.Text>让旅游更幸福</Typography.Text>
             <Dropdown.Button
               style={{ marginLeft: 15, display: "inline" }}
-              menu={{ items: this.state.languageList.map((item) => {
-                return {key: item.code, label: item.name}
-              }) }}
+              menu={{
+                items: [
+                  ...this.state.languageList.map((item) => {
+                    return { key: item.code, label: item.name };
+                  }),
+                  { key: "new", label: "添加新语言" },
+                ],
+                onClick: this.menuClickHandler,
+              }}
               icon={<GlobalOutlined />}
             >
-              {this.state.language === "zh"? "中文" : "English"}
+              {this.state.language === "zh" ? "中文" : "English"}
             </Dropdown.Button>
             <Button.Group className={styles["button-group"]}>
               <Button onClick={() => navigate("/register")}>注册</Button>
