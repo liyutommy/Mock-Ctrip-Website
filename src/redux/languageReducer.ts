@@ -1,3 +1,5 @@
+import i18n from "i18next";
+
 export interface LanguageState {
   language: "en" | "zh";
   languageList: { name: string; code: string }[];
@@ -15,6 +17,7 @@ const reducer = (state = defaultState, action) => {
   console.log(state, action);
   switch (action.type) {
     case "change_language":
+      i18n.changeLanguage(action.payload); // 处理不标准，有副作用
       return { ...state, language: action.payload };
     case "add_language":
       return {

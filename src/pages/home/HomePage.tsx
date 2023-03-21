@@ -14,8 +14,12 @@ import sideImage1 from "../../assets/images/sider_1.png";
 import sideImage2 from "../../assets/images/sider_2.png";
 import sideImage3 from "../../assets/images/sider_3.png";
 
-export class HomePage extends Component {
+import { withTranslation, WithTranslation } from "react-i18next";
+
+class HomePageComponent extends Component<WithTranslation> {
   render() {
+    const { t } = this.props;
+
     return (
       <>
         <Header />
@@ -37,7 +41,7 @@ export class HomePage extends Component {
           <ProductionCollection
             title={
               <Typography.Title level={3} type="warning">
-                爆款推荐
+                {t("home_page.hot_recommended")}
               </Typography.Title>
             }
             sideImage={sideImage1}
@@ -46,7 +50,7 @@ export class HomePage extends Component {
           <ProductionCollection
             title={
               <Typography.Title level={3} type="danger">
-                新品上市
+                {t("home_page.new_arrival")}
               </Typography.Title>
             }
             sideImage={sideImage2}
@@ -55,7 +59,7 @@ export class HomePage extends Component {
           <ProductionCollection
             title={
               <Typography.Title level={3} type="success">
-                国内游推荐
+                {t("home_page.domestic_travel")}
               </Typography.Title>
             }
             sideImage={sideImage3}
@@ -69,3 +73,5 @@ export class HomePage extends Component {
     );
   }
 }
+
+export const HomePage = withTranslation()(HomePageComponent);
