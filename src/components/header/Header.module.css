@@ -31,9 +31,6 @@
   width: 88%;
   margin-left: auto;
   margin-right: auto;
-  /* 为了垂直居中logo */
-  display: flex;
-  align-items: center;
 }
 
 .App-logo {
