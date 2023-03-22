@@ -15,15 +15,9 @@ import sideImage2 from "../../assets/images/sider_2.png";
 import sideImage3 from "../../assets/images/sider_3.png";
 
 import { withTranslation, WithTranslation } from "react-i18next";
-import axios from "axios";
 import { connect } from "react-redux";
 import { RootState } from "../../redux/store";
-import { Dispatch } from "redux";
-import {
-  fetchRecommendProductStartActionCreator,
-  fetchRecommendProductSuccessActionCreator,
-  fetchRecommendProductFailActionCreator,
-} from "../../redux/recommendProducts/recommendProductsActions";
+import { giveMeDataActionCreator } from "../../redux/recommendProducts/recommendProductsActions";
 
 const mapStateToProps = (state: RootState) => {
   return {
@@ -33,20 +27,12 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    fetchStart: () => {
-      const action = fetchRecommendProductStartActionCreator();
+    giveMeData: () => {
+      const action = giveMeDataActionCreator();
       dispatch(action);
-    },
-    fetchSuccess: (data) => {
-      const action = fetchRecommendProductSuccessActionCreator(data);
-      dispatch(action);
-    },
-    fetchFail: (error) => {
-      const action = fetchRecommendProductFailActionCreator(error);
-      dispatch(action);
-    },
+    }
   };
 };
 
@@ -55,18 +41,8 @@ type PropsType = WithTranslation & // i18n props类型
   ReturnType<typeof mapDispatchToProps>; // redux dispatch 映射类型
 
 class HomePageComponent extends Component<PropsType> {
-  async componentDidMount() {
-    this.props.fetchStart();
-    try {
-      const { data } = await axios.get(
-        "http://123.56.149.216:8080/api/productCollections"
-      );
-      this.props.fetchSuccess(data);
-    } catch (error) {
-      if (error instanceof Error) {
-        this.props.fetchFail(error.message);
-      }
-    }
+  componentDidMount() {
+    this.props.giveMeData()
   }
 
   render() {
