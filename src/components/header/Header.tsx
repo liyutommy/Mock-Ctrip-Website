@@ -44,7 +44,7 @@ export const Header: React.FC = () => {
     <div className={styles["App-header"]}>
       <div className={styles["top-header"]}>
         <div className={styles.inner}>
-          <Typography.Text>让旅游更幸福</Typography.Text>
+          <Typography.Text>{t("header.slogan")}</Typography.Text>
           <Dropdown.Button
             style={{ marginLeft: 15, display: "inline" }}
             menu={{

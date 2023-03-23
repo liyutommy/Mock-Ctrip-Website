@@ -11,7 +11,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/detail/:touristUserId" element={<DetailPage />} />
+          <Route path="/detail/:touristRouteId" element={<DetailPage />} />
           <Route path="*" element={<h1>404 not found 页面跑去火星了</h1>} />
         </Routes>
       </BrowserRouter>
