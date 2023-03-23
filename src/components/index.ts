@@ -5,3 +5,4 @@ export * from "./carousel";
 export * from "./productionCollection";
 export * from "./businessPartners";
 export * from "./productIntro"
+export * from "./productComments"
