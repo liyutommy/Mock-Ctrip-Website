@@ -11,8 +11,8 @@ import {
 } from "../../components";
 import { DatePicker } from "antd";
 import { commentMockData } from "./mockup";
-import { productDetailSlice } from "../../redux/productDetail/slice";
-import { useSelector } from "../../redux/hooks";
+import { productDetailSlice, getProductDetail } from "../../redux/productDetail/slice";
+import { useSelector, useAppDispatch } from "../../redux/hooks";
 import { useDispatch } from "react-redux";
 
 const { RangePicker } = DatePicker;
@@ -31,25 +31,12 @@ export const DetailPage: React.FC = () => {
   const error = useSelector((state) => state.productDetail.error);
   const product = useSelector((state) => state.productDetail.data);
 
-  const dispath = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const fetchData = async () => {
-      dispath(productDetailSlice.actions.fetchStart());
-      try {
-        const { data } = await axios.get(
-          `http://123.56.149.216:8080/api/touristRoutes/${touristRouteId}`
-        );
-        dispath(productDetailSlice.actions.fetchSuccess(data));
-      } catch (error) {
-        dispath(
-          productDetailSlice.actions.fetchFail(
-            error instanceof Error ? error.message : "error"
-          )
-        );
-      }
-    };
-    fetchData();
+    if(touristRouteId) {
+      dispatch(getProductDetail(touristRouteId));
+    }
     return () => {};
   }, []);
 
