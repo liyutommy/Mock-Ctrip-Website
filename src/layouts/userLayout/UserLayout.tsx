@@ -11,12 +11,6 @@ interface PropsTypes {
 }
 
 export const UserLayout: React.FC<PropsTypes> = (props) => {
-  // const menu = (
-  //   <Menu>
-  //     <Menu.Item>中文</Menu.Item>
-  //     <Menu.Item>English</Menu.Item>
-  //   </Menu>
-  // );
 
   const items = [
     {key: "1", label: "中文"},
