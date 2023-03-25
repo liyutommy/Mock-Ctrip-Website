@@ -6,3 +6,5 @@ export * from "./productionCollection";
 export * from "./businessPartners";
 export * from "./productIntro"
 export * from "./productComments"
+export * from "./filter"
+export * from "./productList"
