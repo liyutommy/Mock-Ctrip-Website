@@ -19,6 +19,8 @@ import { connect } from "react-redux";
 import { RootState } from "../../redux/store";
 import { giveMeDataActionCreator } from "../../redux/recommendProducts/recommendProductsActions";
 
+import { MainLayout } from "../../layouts/mainLayout";
+
 const mapStateToProps = (state: RootState) => {
   return {
     loading: state.recommendProducts.loading,
@@ -32,7 +34,7 @@ const mapDispatchToProps = (dispatch) => {
     giveMeData: () => {
       const action = giveMeDataActionCreator();
       dispatch(action);
-    }
+    },
   };
 };
 
@@ -42,7 +44,7 @@ type PropsType = WithTranslation & // i18n props类型
 
 class HomePageComponent extends Component<PropsType> {
   componentDidMount() {
-    this.props.giveMeData()
+    this.props.giveMeData();
   }
 
   render() {
@@ -68,55 +70,50 @@ class HomePageComponent extends Component<PropsType> {
     }
 
     return (
-      <>
-        <Header />
-        {/* 页面内容 content */}
-        <div className={styles["page-content"]}>
-          <Row style={{ marginTop: 20 }}>
-            <Col span={6}>
-              <div>
-                <SideMenu />
-              </div>
-            </Col>
-            <Col span={18}>
-              <div>
-                <Carousel />
-              </div>
-            </Col>
-          </Row>
+      <MainLayout>
+        <Row style={{ marginTop: 20 }}>
+          <Col span={6}>
+            <div>
+              <SideMenu />
+            </div>
+          </Col>
+          <Col span={18}>
+            <div>
+              <Carousel />
+            </div>
+          </Col>
+        </Row>
 
-          <ProductionCollection
-            title={
-              <Typography.Title level={3} type="warning">
-                {t("home_page.hot_recommended")}
-              </Typography.Title>
-            }
-            sideImage={sideImage1}
-            products={productList[0].touristRoutes}
-          />
-          <ProductionCollection
-            title={
-              <Typography.Title level={3} type="danger">
-                {t("home_page.new_arrival")}
-              </Typography.Title>
-            }
-            sideImage={sideImage2}
-            products={productList[1].touristRoutes}
-          />
-          <ProductionCollection
-            title={
-              <Typography.Title level={3} type="success">
-                {t("home_page.domestic_travel")}
-              </Typography.Title>
-            }
-            sideImage={sideImage3}
-            products={productList[2].touristRoutes}
-          />
+        <ProductionCollection
+          title={
+            <Typography.Title level={3} type="warning">
+              {t("home_page.hot_recommended")}
+            </Typography.Title>
+          }
+          sideImage={sideImage1}
+          products={productList[0].touristRoutes}
+        />
+        <ProductionCollection
+          title={
+            <Typography.Title level={3} type="danger">
+              {t("home_page.new_arrival")}
+            </Typography.Title>
+          }
+          sideImage={sideImage2}
+          products={productList[1].touristRoutes}
+        />
+        <ProductionCollection
+          title={
+            <Typography.Title level={3} type="success">
+              {t("home_page.domestic_travel")}
+            </Typography.Title>
+          }
+          sideImage={sideImage3}
+          products={productList[2].touristRoutes}
+        />
 
-          <BusinessPartners />
-        </div>
-        <Footer />
-      </>
+        <BusinessPartners />
+      </MainLayout>
     );
   }
 }
