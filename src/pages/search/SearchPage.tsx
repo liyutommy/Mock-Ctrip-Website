@@ -35,7 +35,7 @@ export const SearchPage: React.FC = () => {
     if (keywords) {
       dispatch(searchProduct({ nextPage, pageSize, keywords }));
     } else {
-      dispatch(searchProduct({ nextPage: 1, pageSize: 10, keywords: "" }));
+      dispatch(searchProduct({ nextPage, pageSize, keywords: "" }));
     }
   };
 

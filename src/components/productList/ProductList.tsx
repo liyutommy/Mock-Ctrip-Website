@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { List, Rate, Space, Image, Tag, Typography } from "antd";
-import { MessageOutlined, LikeOutlined, StarOutlined } from "@ant-design/icons";
+import { LikeOutlined, StarOutlined } from "@ant-design/icons";
 
 interface Product {
   departureCity: string;
@@ -62,7 +62,7 @@ export const ProductList: React.FC<PropsType> = ({
       size="large"
       pagination={{
         current: paging.currentPage,
-        onChange: (page) => onPageChange && onPageChange(page, paging.pageSize), 
+        onChange: (page) => onPageChange && onPageChange(page, paging.pageSize),
         pageSize: paging.pageSize,
         total: paging.totalCount,
       }}
