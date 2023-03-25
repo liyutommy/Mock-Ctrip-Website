@@ -52,7 +52,6 @@ export const Header: React.FC = () => {
   const handleLogout = () => {
     dispatch(userSlice.actions.logOut())
     navigate("/")
-    window.location.reload()
   }
 
   const menuClickHandler = (event) => {
