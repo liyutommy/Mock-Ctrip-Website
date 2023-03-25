@@ -3,7 +3,7 @@ import styles from "./UserLayout.module.css";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import { CaretDownOutlined } from "@ant-design/icons";
-import { Layout, Menu, Dropdown, Button } from "antd";
+import { Layout, Dropdown, Button } from "antd";
 const { Header, Footer, Content } = Layout;
 
 interface PropsTypes {
@@ -21,7 +21,7 @@ export const UserLayout: React.FC<PropsTypes> = (props) => {
     <Layout className={styles["user-layout-container"]}>
       <Header className={styles["header"]}>
         <div className={styles["lang"]}>
-          <Dropdown menu={{items}}>
+          <Dropdown menu={{ items }}>
             <Button>
               {" "}
               选择语言 <CaretDownOutlined />
@@ -43,7 +43,7 @@ export const UserLayout: React.FC<PropsTypes> = (props) => {
           {props.children}
         </div>
       </Content>
-      <Footer style={{ textAlign: "center" }}>Footer就不写了, 太累了</Footer>
+      <Footer style={{ textAlign: "center" }}>版权所有 @ 旅游网</Footer>
     </Layout>
   );
 };
