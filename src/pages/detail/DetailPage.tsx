@@ -8,11 +8,13 @@ import {
   ProductIntro,
   ProductComments,
 } from "../../components";
-import { DatePicker } from "antd";
+import { DatePicker, Button } from "antd";
 import { commentMockData } from "./mockup";
-import {  getProductDetail } from "../../redux/productDetail/slice";
+import { getProductDetail } from "../../redux/productDetail/slice";
 import { useSelector, useAppDispatch } from "../../redux/hooks";
 import { MainLayout } from "../../layouts/mainLayout";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { addShoppingCartItem } from "../../redux/shoppingCart/slice";
 
 const { RangePicker } = DatePicker;
 
@@ -27,10 +29,15 @@ export const DetailPage: React.FC = () => {
   const error = useSelector((state) => state.productDetail.error);
   const product = useSelector((state) => state.productDetail.data);
 
+  const jwt = useSelector((state) => state.user.token) as string;
+  const shoppingCartLoading = useSelector(
+    (state) => state.shoppingCart.loading
+  );
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if(touristRouteId) {
+    if (touristRouteId) {
       dispatch(getProductDetail(touristRouteId));
     }
     return () => {};
@@ -57,92 +64,105 @@ export const DetailPage: React.FC = () => {
 
   return (
     <MainLayout>
-        {/* 产品简介与日期选择 */}
-        <div className={styles["product-intro-container"]}>
-          <Row>
-            <Col span={13}>
-              <ProductIntro
-                title={product.title}
-                shortDescription={product.description}
-                price={product.originalPrice}
-                coupons={product.coupons}
-                points={product.points}
-                discount={product.price}
-                rating={product.rating}
-                pictures={product.touristRoutePictures.map((item) => item.url)}
-              />
-            </Col>
-            <Col span={11}>
-              <RangePicker open style={{ marginTop: 20 }} />
-            </Col>
-          </Row>
+      {/* 产品简介与日期选择 */}
+      <div className={styles["product-intro-container"]}>
+        <Row>
+          <Col span={13}>
+            <ProductIntro
+              title={product.title}
+              shortDescription={product.description}
+              price={product.originalPrice}
+              coupons={product.coupons}
+              points={product.points}
+              discount={product.price}
+              rating={product.rating}
+              pictures={product.touristRoutePictures.map((item) => item.url)}
+            />
+          </Col>
+          <Col span={11}>
+            <Button
+              style={{ marginTop: 50, marginBottom: 30, display: "block" }}
+              type="primary"
+              danger
+              loading={shoppingCartLoading}
+              onClick={() =>
+                dispatch(
+                  addShoppingCartItem({ jwt, touristRouteId: product.id })
+                )
+              }
+            >
+              放入购物车
+            </Button>
+            <RangePicker open style={{ marginTop: 20 }} />
+          </Col>
+        </Row>
+      </div>
+      {/* 锚点菜单 */}
+      <Anchor
+        className={styles["product-detail-anchor"]}
+        direction="horizontal"
+        items={[
+          {
+            key: "1",
+            href: "#feature",
+            title: "产品特色",
+          },
+          {
+            key: "2",
+            href: "#fees",
+            title: "费用",
+          },
+          {
+            key: "3",
+            href: "#notes",
+            title: "预订须知",
+          },
+          {
+            key: "4",
+            href: "#comments",
+            title: "用户评价",
+          },
+        ]}
+      />
+      {/* 产品特色 */}
+      <div id="feature" className={styles["product-detail-container"]}>
+        <Divider orientation={"center"}>
+          <Typography.Title level={3}>产品特色</Typography.Title>
+        </Divider>
+        <div
+          dangerouslySetInnerHTML={{ __html: product.features }}
+          style={{ margin: 50 }}
+        ></div>
+      </div>
+      {/* 费用 */}
+      <div id="fees" className={styles["product-detail-container"]}>
+        <Divider orientation={"center"}>
+          <Typography.Title level={3}>费用</Typography.Title>
+        </Divider>
+        <div
+          dangerouslySetInnerHTML={{ __html: product.fees }}
+          style={{ margin: 50 }}
+        ></div>
+      </div>
+      {/* 预定须知 */}
+      <div id="notes" className={styles["product-detail-container"]}>
+        <Divider orientation={"center"}>
+          <Typography.Title level={3}>预定须知</Typography.Title>
+        </Divider>
+        <div
+          dangerouslySetInnerHTML={{ __html: product.notes }}
+          style={{ margin: 50 }}
+        ></div>
+      </div>
+      {/* 产品评价 */}
+      <div id="comments" className={styles["product-detail-container"]}>
+        <Divider orientation={"center"}>
+          <Typography.Title level={3}>用户评价</Typography.Title>
+        </Divider>
+        <div style={{ margin: 40 }}>
+          <ProductComments data={commentMockData} />
         </div>
-        {/* 锚点菜单 */}
-        <Anchor
-          className={styles["product-detail-anchor"]}
-          direction="horizontal"
-          items={[
-            {
-              key: "1",
-              href: "#feature",
-              title: "产品特色",
-            },
-            {
-              key: "2",
-              href: "#fees",
-              title: "费用",
-            },
-            {
-              key: "3",
-              href: "#notes",
-              title: "预订须知",
-            },
-            {
-              key: "4",
-              href: "#comments",
-              title: "用户评价",
-            },
-          ]}
-        />
-        {/* 产品特色 */}
-        <div id="feature" className={styles["product-detail-container"]}>
-          <Divider orientation={"center"}>
-            <Typography.Title level={3}>产品特色</Typography.Title>
-          </Divider>
-          <div
-            dangerouslySetInnerHTML={{ __html: product.features }}
-            style={{ margin: 50 }}
-          ></div>
-        </div>
-        {/* 费用 */}
-        <div id="fees" className={styles["product-detail-container"]}>
-          <Divider orientation={"center"}>
-            <Typography.Title level={3}>费用</Typography.Title>
-          </Divider>
-          <div
-            dangerouslySetInnerHTML={{ __html: product.fees }}
-            style={{ margin: 50 }}
-          ></div>
-        </div>
-        {/* 预定须知 */}
-        <div id="notes" className={styles["product-detail-container"]}>
-          <Divider orientation={"center"}>
-            <Typography.Title level={3}>预定须知</Typography.Title>
-          </Divider>
-          <div
-            dangerouslySetInnerHTML={{ __html: product.notes }}
-            style={{ margin: 50 }}
-          ></div>
-        </div>
-        {/* 产品评价 */}
-        <div id="comments" className={styles["product-detail-container"]}>
-          <Divider orientation={"center"}>
-            <Typography.Title level={3}>用户评价</Typography.Title>
-          </Divider>
-          <div style={{ margin: 40 }}>
-            <ProductComments data={commentMockData} />
-          </div>
-        </div>
+      </div>
     </MainLayout>
   );
 };
