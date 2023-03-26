@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Header.module.css";
 import logo from "../../assets/logo.png";
 import { Button } from "antd";
@@ -29,17 +29,16 @@ export const Header: React.FC = () => {
   const { t } = useTranslation();
 
   const jwt = useSelector((state) => state.user.token);
-  const [username, setUsername] = useState("")
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
-    if(jwt){
+    if (jwt) {
       const token = jwtDecode<JwtPayload>(jwt);
       setUsername(token.username);
     }
-  
-    return () => {}
-  }, [jwt])
-  
+
+    return () => {};
+  }, [jwt]);
 
   const handleRegister = () => {
     navigate("/register");
@@ -50,9 +49,9 @@ export const Header: React.FC = () => {
   };
 
   const handleLogout = () => {
-    dispatch(userSlice.actions.logOut())
-    navigate("/")
-  }
+    dispatch(userSlice.actions.logOut());
+    navigate("/");
+  };
 
   const menuClickHandler = (event) => {
     console.log(event);
@@ -90,7 +89,9 @@ export const Header: React.FC = () => {
                 {t("header.welcome")}
                 <Typography.Text strong>{username}</Typography.Text>
               </span>
-              <Button>{t("header.shoppingCart")}</Button>
+              <Button onClick={() => navigate("/shoppingCart")}>
+                {t("header.shoppingCart")}
+              </Button>
               <Button onClick={handleLogout}>{t("header.signOut")}</Button>
             </Button.Group>
           ) : (
