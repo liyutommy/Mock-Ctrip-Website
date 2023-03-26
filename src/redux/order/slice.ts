@@ -9,7 +9,7 @@ interface orderState {
 }
 
 const initialState: orderState = {
-  loading: true,
+  loading: false,
   error: null,
   currentOrder: null,
 };
