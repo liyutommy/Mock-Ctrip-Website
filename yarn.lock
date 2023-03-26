@@ -8292,6 +8292,11 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.npmmirror.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-payment-inputs@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.npmmirror.com/react-payment-inputs/-/react-payment-inputs-1.1.9.tgz#12b3c7fd10511998bb71999d9f69dfcc456762e1"
+  integrity sha512-k5j6fFCqcYRqbLP8UjWxJlNZXwVCO0pApXBLYvZZkTCPlqxXyumcnkxToHbLwLfO4Sxey3lD3At9Hwi8AAw0Ig==
+
 react-redux@^8.0.5:
   version "8.0.5"
   resolved "https://registry.npmmirror.com/react-redux/-/react-redux-8.0.5.tgz"
